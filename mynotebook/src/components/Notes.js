@@ -15,6 +15,7 @@ export default function Notes() {
             getnotes();
         else
             history.push('/login');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const ref = useRef(null);

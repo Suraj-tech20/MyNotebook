@@ -1,20 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
-    // const s1 = {
-    //     "name": "Suraj",
-    //     "class": "sb"
-    // }
-    // const [state, setState] = useState(s1);
-    // const update = () => {
-    //     setTimeout(() => {
-    //         setState({
-    //             "name": "Larry",
-    //             "class": "10b"
-    //         });
-    //     }, 1000);
-    // }
     const host = 'http://localhost:5000';
     const { showAlert } = props;
     const [notes, setNotes] = useState([]);
@@ -68,21 +56,10 @@ const NoteState = (props) => {
                 'auth-token': localStorage.getItem('token')
             }
         });
-        // console.log(await response.json());
         // Logic to deletenote on frontend
         setNotes(notes.filter(note => note._id !== id));
         setAllNotes(notes.filter(note => note._id !== id));
         showAlert("Node is Deleted successfully", "success");
-    }
-
-    const searchByTitle = async (val) => {
-        setNotes(allNotes.filter((note) => {
-            if (val === "") {
-                return note;
-            } else if (note.title.toLowerCase().includes(val.toLowerCase())) {
-                return note;
-            }
-        }));
     }
 
     const editnote = async (id, title, description, tag) => {
@@ -95,7 +72,6 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        // return response.json();
         // Logic to editnote on frontend
         let updateNotes = await JSON.parse(JSON.stringify(notes));
         for (let i = 0; i < updateNotes.length; i++) {
@@ -110,8 +86,24 @@ const NoteState = (props) => {
         setAllNotes(updateNotes);
         showAlert("Note is updated Success", "success");
     }
+
+    const searchByTitle = (val) => {
+        setNotes(allNotes.filter((note) => {
+            if (val === "") {
+                return true;
+            } else if (note.title.toLowerCase().includes(val.toLowerCase())) {
+                return true;
+            } else {
+                return false;
+            }
+        }));
+    }
+
+    const sortNotes = () => {
+        setNotes([...notes].reverse());
+    }
     return (
-        <NoteContext.Provider value={{ notes, addnote, deletenote, editnote, getnotes, searchByTitle }}>
+        <NoteContext.Provider value={{ notes, addnote, deletenote, editnote, getnotes, searchByTitle, sortNotes }}>
             {props.children}
         </NoteContext.Provider>
     )

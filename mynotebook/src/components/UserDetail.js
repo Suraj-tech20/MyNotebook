@@ -14,6 +14,7 @@ export default function UserDetail() {
             setUser(res.user);
             setLoading(false);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div className="dropdown">
