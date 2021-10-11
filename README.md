@@ -1,7 +1,7 @@
 
 # MyNoteBook
 
-A brief description of what this project does and who it's for
+This a app where you can access and create Note anywhere.
 
 
 ## Features
