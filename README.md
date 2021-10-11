@@ -15,8 +15,18 @@ A brief description of what this project does and who it's for
 Github Repository : https://github.com/Suraj-tech20/mynotebook
 
   
-## Video
+## ScreenShots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+### Home Screen
+![App Screenshot](./Assets/Home.JPG)
+
+### Searching
+![App Screenshot](./Assets/Searching.JPG)
+
+### Login Screen
+![App Screenshot](./Assets/Login.JPG)
+
+### SignUp Screen
+![App Screenshot](./Assets/signup.JPG)
 
   

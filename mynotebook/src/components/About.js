@@ -3,15 +3,17 @@ import React from 'react'
 
 
 export default function About() {
-    // const a = useContext(noteContext);
-    // useEffect(() => {
-    //     a.update();
-    //     // eslint-disable-next-line
-    // }, []);
-
     return (
         <div>
-            This About page;
+            <div className="container">
+                <h1>My Note Book</h1>
+                <p>This is MERN-Stack technology based web application</p>
+                <ul>
+                    <li>You need to authenticate to continue with this application.</li>
+                    <li>You will create and access your note anywhere and anytime with any device.</li>
+                    <li>You can search your notes by title.</li>
+                </ul>
+            </div>
         </div>
     )
 }
