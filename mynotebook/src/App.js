@@ -27,7 +27,7 @@ function App() {
     <Router>
       <AuthState showAlert={showAlert} >
         <NoteState showAlert={showAlert} >
-          <Navbar />
+          <Navbar showAlert={showAlert} />
           <Alert alert={alert} />
           <div className="container">
             <Switch>

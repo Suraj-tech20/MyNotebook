@@ -5,13 +5,15 @@ import UserDetail from './UserDetail';
 
 
 
-export default function Navbar() {
+export default function Navbar(props) {
     const location = useLocation();
+    const { showAlert } = props;
     let history = useHistory();
     useEffect(() => {
     }, [location]);
     const handleLogout = () => {
         localStorage.removeItem('token');
+        showAlert("Logged Out Successfully", "success");
         history.push('/login');
     }
     return (
