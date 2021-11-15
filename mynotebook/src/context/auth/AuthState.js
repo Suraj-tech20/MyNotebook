@@ -15,7 +15,6 @@ const AuthState = (props) => {
             body: JSON.stringify({ email, password })
         });
         const json = await response.json();
-        console.log(json);
         if (json.successful) {
             localStorage.setItem('token', json.jwttoken);
             showAlert("Logged in Succesfully", "success");
@@ -34,11 +33,10 @@ const AuthState = (props) => {
             body: JSON.stringify({ name, email, password })
         });
         const json = await response.json();
-        console.log(json);
         if (json.successful) {
             localStorage.setItem('token', json.jwttoken);
             showAlert("Signed Up Succesfully", "success");
-            history.push('/');
+            history.push('/login');
         } else {
             showAlert(json.error, "danger");
         }

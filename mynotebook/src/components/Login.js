@@ -16,8 +16,8 @@ export default function Login() {
     }
     return (
         <div className="d-flex justify-content-center">
-            <div class="card my-4" style={{ width: '50rem' }}>
-                <div class="card-body">
+            <div className="card my-4" style={{ width: '50rem' }}>
+                <div className="card-body">
                     <h1 className="text-center text-info">Login to continue with Mynotebook</h1>
                     <form onSubmit={onSubmit}>
                         <div className="my-4">

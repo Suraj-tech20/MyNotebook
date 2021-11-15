@@ -10,6 +10,12 @@ const UserModel = new Schema({
         require: true,
         unique: true
     },
+    emailToken: {
+        type: String,
+    },
+    isVerified: {
+        type: Boolean,
+    },
     password: {
         type: String,
         require: true

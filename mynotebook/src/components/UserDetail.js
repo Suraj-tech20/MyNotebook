@@ -13,6 +13,8 @@ export default function UserDetail() {
         getuser(localStorage.getItem('token')).then(res => {
             setUser(res.user);
             setLoading(false);
+        }).catch(err => {
+            console.log(err);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -22,7 +24,8 @@ export default function UserDetail() {
                 Hello! {!loading ? user.name : ""}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><span className="dropdown-item">{!loading && user.email}</span></li>
+                <li><span className="dropdown-item">
+                    {!loading && user.email}</span></li>
                 <li><span className="dropdown-item">{!loading && (new Date(user.date).toDateString())}</span></li>
             </ul>
         </div >
