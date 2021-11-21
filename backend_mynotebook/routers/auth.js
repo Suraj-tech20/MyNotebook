@@ -32,7 +32,7 @@ router.post('/createuser',
         }
         // Catch unusal error
         try {
-            await User.remove({});
+            // await User.remove({});
             // Find user by email
             let user = await User.findOne({ email: req.body.email });
             if (user) {

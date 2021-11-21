@@ -6,7 +6,7 @@ export default function UserDetail() {
     // destructuring of context
     const { getuser } = context;
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({ name: "", email: "" });
     // let newUser = {};
     // const [user, setUser] = useState(initialState)
     useEffect(() => {
@@ -20,14 +20,14 @@ export default function UserDetail() {
     }, []);
     return (
         <div className="dropdown">
-            {/* <button className="btn btn-primary dropdown-toggle mx-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn btn-primary dropdown-toggle mx-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Hello! {!loading ? user.name : ""}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><span className="dropdown-item">
                     {!loading && user.email}</span></li>
                 <li><span className="dropdown-item">{!loading && (new Date(user.date).toDateString())}</span></li>
-            </ul> */}
+            </ul>
         </div >
     )
 }
