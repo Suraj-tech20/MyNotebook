@@ -23,6 +23,39 @@ const AuthState = (props) => {
             showAlert(json.error, "danger");
         }
     }
+    const reset = async (email, password) => {
+        const response = await fetch(`${host}/auth/user/reset-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+        });
+        const json = await response.json();
+        if (json.successful) {
+            showAlert(json.msg, "success");
+            history.push('/login');
+        } else {
+            showAlert(json.error, "danger");
+        }
+    }
+    const newpassword = async (password, token) => {
+        const response = await fetch(`${host}/auth/user/newpassword`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password, token })
+        });
+        const json = await response.json();
+        if (json.successful) {
+            showAlert(json.msg, "success");
+            history.push('/login');
+        } else {
+            showAlert(json.error, "danger");
+        }
+        // console.log(password, token, 'aasdfkajs');
+    }
 
     const signup = async (name, email, password) => {
         const response = await fetch(`${host}/auth/createuser`, {
@@ -54,7 +87,7 @@ const AuthState = (props) => {
         return json;
     }
     return (
-        <AuthContext.Provider value={{ login, signup, getuser }}>
+        <AuthContext.Provider value={{ login, signup, getuser, reset, newpassword }}>
             {props.children}
         </AuthContext.Provider>
     )

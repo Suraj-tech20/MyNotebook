@@ -13,6 +13,9 @@ const UserModel = new Schema({
     emailToken: {
         type: String,
     },
+    expireToken: {
+        type: Date
+    },
     isVerified: {
         type: Boolean,
     },

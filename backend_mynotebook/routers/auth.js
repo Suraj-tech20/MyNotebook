@@ -45,6 +45,7 @@ router.post('/createuser',
                     password: userPassword,
                     email: req.body.email,
                     emailToken: crypto.randomBytes(64).toString('hex'),
+                    expireToken: null,
                     isVerified: false
                 });
                 const data = {
@@ -63,18 +64,18 @@ router.post('/createuser',
                 }
                 transporter.sendMail(mailOption, function(error, info) {
                     if (error) {
-                        console.log(error);
+                        // console.log(error);
                         res.status(400).json({ error: "Please Enter a valid email.." })
                     } else {
                         console.log("Verification email is sent to your gmail account");
                     }
-                })
+                });
                 successful = true;
                 res.json({ successful, jwttoken });
 
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             return res.status(404).json({ error: 'An unexpected error occured' });
         }
     }
@@ -96,16 +97,103 @@ router.get('/user/verify-email', async(req, res) => {
             res.redirect("http://localhost:3000/login");
         }
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         res.json({ verified: false });
+        res.redirect("http://localhost:3000/login");
     }
 });
 
-// // Route to resend verification email
+router.post('/user/reset-password',
+    body('email', 'Please enter a valid email').isEmail(),
+    async(req, res) => {
+        let successful = false;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ successful, errors: errors.array() });
+        }
+        try {
+            let user = await User.findOne({ email: req.body.email });
+            if (!user) {
+                return res.status(400).json({ successful, error: 'Incorrect password or email' });
+            }
+            if (!user.isVerified) {
+                var mailOption = {
+                    from: '"Verify your email" <My Notebook>',
+                    to: user.email,
+                    subject: 'mynotebook - verify your email',
+                    html: `<h2> ${user.name}! Thanks for registering on our site </h2>
+                    <h4> Please verify your mail to continue...</h4>
+                    <a href="http://${req.headers.host}/auth/user/verify-email?token=${user.emailToken}"> Verify Your Email`
+                }
+                transporter.sendMail(mailOption, function(error, info) {
+                    if (error) {
+                        console.log(error);
+                        res.status(400).json({ successful, error: "Please Enter a valid email.." });
+                    } else {
+                        console.log("Verification email is sent to your gmail account");
+                    }
+                });
+                return res.status(401).json({ successful, error: 'Please verify your email. Verification link is sent to your mail..' });
+            }
+            user.emailToken = crypto.randomBytes(64).toString('hex');
+            user.expireToken = Date.now() + 3600000;
+            await user.save();
+            var mailOption = {
+                from: '"Verify your email" <My Notebook>',
+                to: user.email,
+                subject: 'mynotebook - verify your email',
+                html: `<h2> ${user.name}! Your reset password link</h2>
+                <h4> Please click the link to reset password...</h4>
+                <a href="http://localhost:3000/reset/${user.emailToken}"> Verify Your Email`
+            }
+            transporter.sendMail(mailOption, function(error, info) {
+                if (error) {
+                    // console.log(error);
+                    res.status(400).json({ successful, error: "Please enter a valid email.." });
+                } else {
+                    console.log("Reset link is sent to your mail...");
+                }
+            });
+            successful = true;
+            return res.status(200).json({ successful, msg: 'Reset password link is sent to your mail...' });
+        } catch (err) {
+            // console.log(err);
+            res.json({ verified: false });
+            return res.status(400).json({ successful, error: 'Incorrect password or email' });
+        }
+    });
 
-// router.post('/user/resend-email', async(req, res) => {
 
-// });
+router.post('/user/newpassword', async(req, res) => {
+    let successful = false;
+    try {
+        const token = req.body.token;
+        // console.log(token);
+        const user = await User.findOne({ emailToken: token });
+        // console.log(user);
+        if (user) {
+            // console.log(Date.now(), user.expireToken);
+            if (Date.now() <= user.expireToken) {
+                const salt = await bcrypt.genSalt(10);
+                const userPassword = await bcrypt.hash(req.body.password, salt);
+                user.password = userPassword;
+                user.emailToken = null;
+                user.expireToken = null;
+                await user.save();
+                // console.log(user);
+                successful = true;
+                return res.json({ successful, msg: "Your password is reset..." });
+            } else {
+                return res.json({ successful, error: "Your token is expired..." });
+            }
+        } else {
+            return res.status(400).json({ successful, error: "Invalid token..." });
+        }
+    } catch (err) {
+        // console.log(err);
+        return res.status(400).json({ successful, error: "Invalid token..." });
+    }
+});
 
 //Route 2: /auth/login: To authenticate user or login user
 router.post('/login',
@@ -158,7 +246,7 @@ router.post('/login',
             successful = true;
             return res.json({ successful, jwttoken });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             return res.status(500).json({ successful, error: 'An unexpected error occured' });
         }
     }
