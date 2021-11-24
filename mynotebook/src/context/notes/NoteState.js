@@ -3,7 +3,7 @@ import { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
-    const host = 'http://localhost:5000';
+    const host = process.env.REACT_APP_BACKEND_HOST || 'http://localhost:5000';
     const { showAlert } = props;
     const [notes, setNotes] = useState([]);
     const [allNotes, setAllNotes] = useState([]);

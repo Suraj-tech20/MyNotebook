@@ -12,8 +12,8 @@ const fetchuser = require('../middleware/fetchuser');
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'yash69sharma69@gmail.com',
-        pass: 'Yash69@2000'
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
     }
 });
 // =======ROUTES========
@@ -86,20 +86,18 @@ router.get('/user/verify-email', async(req, res) => {
     try {
         const token = req.query.token;
         const user = await User.findOne({ emailToken: token });
-        console.log(user);
+        // console.log(user);
         if (user) {
             user.emailToken = null;
             user.isVerified = true;
             await user.save();
-            console.log(user);
-            res.redirect("http://localhost:3000/login");
-        } else {
-            res.redirect("http://localhost:3000/login");
+            // console.log(user);
         }
+        res.redirect(process.env.FRONTEND_HEADER + "/login");
     } catch (err) {
         // console.log(err);
         res.json({ verified: false });
-        res.redirect("http://localhost:3000/login");
+        res.redirect(process.env.FRONTEND_HEADER + "/login");
     }
 });
 
@@ -127,7 +125,7 @@ router.post('/user/reset-password',
                 }
                 transporter.sendMail(mailOption, function(error, info) {
                     if (error) {
-                        console.log(error);
+                        // console.log(error);
                         res.status(400).json({ successful, error: "Please Enter a valid email.." });
                     } else {
                         console.log("Verification email is sent to your gmail account");
@@ -144,7 +142,7 @@ router.post('/user/reset-password',
                 subject: 'mynotebook - verify your email',
                 html: `<h2> ${user.name}! Your reset password link</h2>
                 <h4> Please click the link to reset password...</h4>
-                <a href="http://localhost:3000/reset/${user.emailToken}"> Verify Your Email`
+                <a href="${process.env.FRONTEND_HEADER}/reset/${user.emailToken}"> Verify Your Email`
             }
             transporter.sendMail(mailOption, function(error, info) {
                 if (error) {
@@ -233,7 +231,7 @@ router.post('/login',
                 }
                 transporter.sendMail(mailOption, function(error, info) {
                     if (error) {
-                        console.log(error);
+                        // console.log(error);
                         res.status(400).json({ error: "Please Enter a valid email.." })
                     } else {
                         console.log("Verification email is sent to your gmail account");
@@ -261,7 +259,7 @@ router.post('/getuser', fetchuser, async(req, res) => {
         successful = true;
         return res.json({ successful, user });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         return res.status(500).json({ successful, error: "Internal error Occred" });
     }
 });

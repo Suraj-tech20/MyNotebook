@@ -20,8 +20,8 @@ export default function SignUp(props) {
     }
     return (
         <div className="d-flex justify-content-center ">
-            <div class="card my-4" style={{ width: '50rem' }}>
-                <div class="card-body">
+            <div className="card my-4" style={{ width: '50rem' }}>
+                <div className="card-body">
                     <h1 className="text-center text-info">Sign Up to continue with MyNotebook</h1>
                     <form onSubmit={onSubmit}>
                         <div className="my-4">

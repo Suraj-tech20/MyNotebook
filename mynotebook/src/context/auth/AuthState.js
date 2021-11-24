@@ -4,7 +4,7 @@ import AuthContext from "./authContext";
 
 const AuthState = (props) => {
     const history = useHistory();
-    const host = 'http://localhost:5000';
+    const host = process.env.REACT_APP_BACKEND_HOST || 'http://localhost:5000';
     const { showAlert } = props;
     const login = async (email, password) => {
         const response = await fetch(`${host}/auth/login`, {
