@@ -5,7 +5,7 @@ const express = require('express'),
 const connnetToMongodb = require('./db');
 connnetToMongodb();
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // If you want to use req.body you should use this line
 app.use(express.json());
