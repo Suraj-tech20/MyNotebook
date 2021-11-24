@@ -8,6 +8,7 @@ This a app where you can access and create Note anywhere.
 
 - Developed a fully working website using MERN - Stack.
 - To create note user needs to authenticate.
+- Email verification and reset password functionality introduced.
 - User which is logged in can only see his/her notes.
 - Technologies Used: MongoDB, Node.js, React.js, Express.js, and Context api.
 - User can search their notes by title.
