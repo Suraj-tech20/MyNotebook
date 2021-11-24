@@ -30,4 +30,9 @@ Github Repository : https://github.com/Suraj-tech20/mynotebook
 ### SignUp Screen
 ![App Screenshot](./Assets/signup.JPG)
 
+### Forgot Password Screen
+![App Screenshot](./Assets/reset_pass.JPG)
+
+
+
   
