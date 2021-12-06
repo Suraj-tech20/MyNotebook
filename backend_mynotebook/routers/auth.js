@@ -147,7 +147,7 @@ router.post('/user/reset-password',
             transporter.sendMail(mailOption, function(error, info) {
                 if (error) {
                     // console.log(error);
-                    res.status(400).json({ successful, error: "Please enter a valid email.." });
+                    return res.status(400).json({ successful, error: "Please enter a valid email.." });
                 } else {
                     console.log("Reset link is sent to your mail...");
                 }

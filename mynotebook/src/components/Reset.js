@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useContext } from 'react/cjs/react.development';
+import React, { useState, useContext } from 'react';
 import authContext from '../context/auth/authContext';
 
 export default function Login() {

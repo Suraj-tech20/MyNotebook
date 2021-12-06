@@ -1,6 +1,5 @@
-import React, { useContext, useRef } from 'react'
-import { useState } from 'react/cjs/react.development';
-import noteContext from '../context/notes/noteContext'
+import React, { useContext, useRef, useState } from 'react';
+import noteContext from '../context/notes/noteContext';
 
 
 export default function AddNote() {
@@ -9,7 +8,7 @@ export default function AddNote() {
     // destructuring of context
     const { addnote } = context;
 
-    const [note, setNote] = useState({ title: "", description: "", tag: "" })
+    const [note, setNote] = useState({ title: "", description: "", tag: "" });
     const onchange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
     }

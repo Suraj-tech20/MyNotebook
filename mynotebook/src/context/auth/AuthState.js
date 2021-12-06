@@ -24,7 +24,7 @@ const AuthState = (props) => {
             showAlert(json.error, "danger");
         }
     }
-    const reset = async (email, password) => {
+    const reset = async (email) => {
         const response = await fetch(`${host}/auth/user/reset-password`, {
             method: 'POST',
             headers: {

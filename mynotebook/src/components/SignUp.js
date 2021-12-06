@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
-import { useContext } from 'react/cjs/react.development';
 import authContext from '../context/auth/authContext';
 
 export default function SignUp(props) {
