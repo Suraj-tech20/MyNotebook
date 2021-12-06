@@ -13,6 +13,7 @@ This a app where you can access and create Note anywhere.
 - Technologies Used: MongoDB, Node.js, React.js, Express.js, and Context api.
 - User can search their notes by title.
 - User can sort their notes according to date.
+<br/>
 <a href="https://cocky-banach-fc4ecb.netlify.app/" target="_blank">Live Link</a><br/>
 Github Repository : https://github.com/Suraj-tech20/mynotebook
 
@@ -33,7 +34,3 @@ Github Repository : https://github.com/Suraj-tech20/mynotebook
 
 ### Forgot Password Screen
 ![App Screenshot](./Assets/reset_pass.JPG)
-
-
-
-  
